@@ -39,18 +39,19 @@ class Albums
   end
 
   def update()
-    db = PG.connect({
-      dbname: 'music_collection',
-      host: 'localhost'
-      })
-      sql = "UPDATE albums
-      SET (name, genre, artist_id) =
-      ($1, $2, $3) WHERE id = $4"
-      values = [@name, @genre, @artist_id, @id]
-      db.prepare("update", sql)
-      db.exec_prepared("update", values)
-      db.close()
-    end
+    sql = "UPDATE albums
+    SET (name, genre, artist_id) =
+    ($1, $2, $3) WHERE id = $4"
+    values = [@name, @genre, @artist_id, @id]
+    albums = SqlRunner.run(sql, values)
+  end
+
+  def delete()
+    sql = "DELETE FROM albums
+    WHERE id = $1"
+    values = [@id]
+    albums = SqlRunner.run(sql, values)
+  end
 
   def self.delete_all()
     sql = "DELETE FROM albums"
