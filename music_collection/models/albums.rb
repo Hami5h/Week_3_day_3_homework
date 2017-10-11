@@ -59,4 +59,13 @@ class Albums
     albums = SqlRunner.run(sql, values)
   end
 
+  def Albums.find(id)
+      sql = "SELECT * FROM albums
+      WHERE id = $1"
+      values = [id]
+      albums = SqlRunner.run(sql, values)
+      albums_as_objects = albums.map{ |album| Albums.new(album)}
+      return albums_as_objects[0]
+  end
+
 end
