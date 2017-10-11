@@ -1,12 +1,14 @@
 require('pry')
-require_relative('models/artists.rb')
+require_relative('models/artist.rb')
 require_relative('models/albums.rb')
 
+Albums.delete_all
+Artist.delete_all
 
-artist_1 = Artists.new(
+artist_1 = Artist.new(
   {'name' => 'Jackie',})
 
-artist_2 = Artists.new(
+artist_2 = Artist.new(
     {'name' => 'Callum',})
 
 artist_1.save()
