@@ -19,4 +19,12 @@ class Albums
     @id = album[0]['id'].to_i()
   end
 
+  def self.all()
+    sql = "SELECT * FROM albums"
+    values = []
+    albums = SqlRunner.run(sql, values)
+    albums_as_objects = albums.map {|album| Albums.new(album)}
+    return albums_as_objects
+  end
+
 end
