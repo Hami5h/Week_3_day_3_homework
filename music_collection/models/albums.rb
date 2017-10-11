@@ -38,6 +38,20 @@ class Albums
     return artist
   end
 
+  def update()
+    db = PG.connect({
+      dbname: 'music_collection',
+      host: 'localhost'
+      })
+      sql = "UPDATE albums
+      SET (name, genre, artist_id) =
+      ($1, $2, $3) WHERE id = $4"
+      values = [@name, @genre, @artist_id, @id]
+      db.prepare("update", sql)
+      db.exec_prepared("update", values)
+      db.close()
+    end
+
   def self.delete_all()
     sql = "DELETE FROM albums"
     values = []
